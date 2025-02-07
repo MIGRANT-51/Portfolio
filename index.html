@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <meta name="description" content="Nehal Kalbande's cybersecurity portfolio. Showcasing skills and experience in threat analysis, vulnerability assessments, and more.">
+    <style>
+        input, textarea {
+            color: black;
+            caret-color: white; /* Ensure the caret (cursor) is also visible */
+        }
+        input:focus, textarea:focus {
+            color: black;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -252,11 +261,13 @@
                 </div>
             </section>
 
-            <section id="newsletter" class="mb-12 fade-in">
-                <h2 class="text-2xl font-bold mb-4 text-center">Subscribe to Newsletter</h2>
-                <form id="newsletter-form" class="max-w-md mx-auto">
-                    <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full p-2 border border-gray-300 rounded mb-4">
-                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded">Subscribe</button>
+            <section id="contact" class="mb-12 fade-in" aria-labelledby="contact-heading">
+                <h2 id="contact-heading" class="text-2xl font-bold mb-4 text-center">Contact Me</h2>
+                <form id="contact-form" class="max-w-md mx-auto">
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required class="w-full p-2 border border-gray-300 rounded mb-4 text-white">
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required class="w-full p-2 border border-gray-300 rounded mb-4 text-white">
+                    <textarea id="message" name="message" placeholder="Enter your message" required class="w-full p-2 border border-gray-300 rounded mb-4 text-white"></textarea>
+                    <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded">Send Message</button>
                 </form>
                 <p id="response-message" class="text-center mt-4"></p>
             </section>
@@ -270,37 +281,40 @@
     </div>
 
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        document.getElementById('newsletter-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const responseMessage = document.getElementById('response-message');
-
-            try {
-                const response = await fetch('http://localhost:3000/api/subscribe', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email })
-                });
-
-                const data = await response.json();
-                if (response.ok) {
-                    responseMessage.textContent = 'Subscription successful!';
-                    responseMessage.classList.add('text-green-600', 'success-message');
-                } else {
-                    responseMessage.textContent = data.message || 'Subscription failed!';
-                    responseMessage.classList.add('text-red-600', 'error-message');
-                }
-            } catch (error) {
-                responseMessage.textContent = 'An error occurred. Please try again later.';
-                responseMessage.classList.add('text-red-600', 'error-message');
-            }
-        });
-
         document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            document.getElementById('contact-form').addEventListener('submit', async function(event) {
+                event.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                const responseMessage = document.getElementById('response-message');
+
+                try {
+                    const response = await fetch('http://localhost:3000/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, email, message })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert('Message sent successfully!');
+                        responseMessage.textContent = '';
+                        document.getElementById('contact-form').reset();
+                    } else {
+                        responseMessage.textContent = data.message || 'Failed to send message!';
+                        responseMessage.classList.add('text-red-600');
+                    }
+                } catch (error) {
+                    responseMessage.textContent = 'An error occurred. Please try again later.';
+                    responseMessage.classList.add('text-red-600');
+                }
+            });
+
             const fadeInElements = document.querySelectorAll('.fade-in');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {

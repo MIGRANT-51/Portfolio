@@ -7,5 +7,8 @@ CREATE TABLE IF NOT EXISTS contacts (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     message TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('new', 'read', 'archived') DEFAULT 'new'
 );
+
+CREATE INDEX idx_email ON contacts(email);

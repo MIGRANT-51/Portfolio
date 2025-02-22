@@ -67,4 +67,4 @@ For any inquiries or feedback, please contact Nehal Kalbande:
 
 ---
 
-© 2023 Nehal Kalbande. All rights reserved.
+© 2025 Nehal Kalbande. All rights reserved.

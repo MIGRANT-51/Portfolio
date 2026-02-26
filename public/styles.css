@@ -1,0 +1,87 @@
+:root {
+    --primary-color: #1d1414;
+    --secondary-color: #f7f7f7;
+    --accent-color: #3b82f6;
+    --transition-duration: 0.3s;
+    --animation-duration: 0.6s;
+  }
+  .project-card {
+    transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+    will-change: transform, box-shadow;
+  }
+  .project-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--animation-duration) ease-out, transform var(--animation-duration) ease-out;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .animated-icon {
+    transition: transform var(--transition-duration);
+    will-change: transform;
+  }
+  .animated-icon:hover {
+    transform: rotate(360deg);
+  }
+  .section-transition {
+    transition: background-color var(--transition-duration), color var(--transition-duration), transform var(--transition-duration), box-shadow var(--transition-duration);
+  }
+  .section-transition:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .tagline {
+    font-size: 1.5rem;
+    font-weight: bold;
+    animation: slide-in 1s ease-out;
+  }
+  @keyframes slide-in {
+    from { transform: translateX(-100%); opacity: 0; }
+    to   { transform: translateX(0);     opacity: 1; }
+  }
+  .success-message {
+    color: green;
+    animation: fade-in 0.5s ease-out;
+  }
+  .error-message {
+    color: red;
+    animation: shake 0.5s ease-out;
+  }
+  @keyframes shake {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(-5px); }
+    50%  { transform: translateX(5px); }
+    75%  { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  .job-roles {
+    position: relative;
+    height: 2rem;
+    overflow: hidden;
+  }
+  .job-role {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    animation: swipe-fade 14s infinite;
+  }
+  @keyframes swipe-fade {
+    0%, 14.28%  { opacity: 0; transform: translateX(100%); }
+    14.28%, 28.56% { opacity: 1; transform: translateX(0); }
+    28.56%, 100%   { opacity: 0; transform: translateX(-100%); }
+  }
+  .job-role:nth-child(1) { animation-delay: 0s; }
+  .job-role:nth-child(2) { animation-delay: 2s; }
+  .job-role:nth-child(3) { animation-delay: 4s; }
+  .job-role:nth-child(4) { animation-delay: 6s; }
+  .job-role:nth-child(5) { animation-delay: 8s; }
+  .job-role:nth-child(6) { animation-delay: 10s; }
+  .job-role:nth-child(7) { animation-delay: 12s; }

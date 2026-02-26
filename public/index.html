@@ -668,9 +668,13 @@
 
     /* ─── SCROLL REVEAL ──────────────────────────────────────── */
     .reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.hidden-before-load {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
     }
     .reveal.visible {
       opacity: 1;
@@ -1161,20 +1165,12 @@
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Scroll reveal
-    const revealEls = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          // Animate skill bars when visible
-          e.target.querySelectorAll('.skill-fill').forEach(bar => {
-            bar.style.width = bar.dataset.width + '%';
-          });
-        }
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => revealObserver.observe(el));
+    // Show ALL content immediately — no scroll gating needed
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    // Set all skill bar widths immediately
+    document.querySelectorAll('.skill-fill').forEach(bar => {
+      bar.style.width = (bar.dataset.width || '0') + '%';
+    });
 
     // Nav scroll effect
     window.addEventListener('scroll', () => {

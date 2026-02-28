@@ -89,7 +89,7 @@
     /* COMPETENCY */
     .competency-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:80px}
     .comp-item{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 18px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.04em;transition:all 0.2s;display:flex;align-items:center;gap:10px}
-    .comp-item::before{content:'&#9658;';color:var(--blue);font-size:10px;flex-shrink:0}
+    .comp-item::before{content:'\25B8';color:var(--blue);font-size:10px;flex-shrink:0}
     .comp-item.red-team::before{color:var(--red)}
     .comp-item:hover{color:var(--white);border-color:var(--blue);background:var(--surface2)}
 
@@ -208,23 +208,43 @@
 
     /* RESPONSIVE */
     @media(max-width:900px){
-      .hero-inner{grid-template-columns:1fr;text-align:center}
-      .hero-avatar-wrap{justify-self:center}
+      .hero-inner{grid-template-columns:1fr;text-align:center;gap:40px}
+      .hero-avatar-wrap{justify-self:center;order:-1}
+      .avatar-placeholder{width:160px;height:160px;font-size:48px}
+      .hero-avatar-wrap::before{inset:-12px} .hero-avatar-wrap::after{inset:-24px}
       .hero-tag,.hero-dual-badge,.hero-cta,.hero-socials{justify-content:center}
-      .hero-desc{margin:0 auto 28px}
+      .hero-desc{margin:0 auto 24px;max-width:100%}
+      h1{font-size:clamp(2.5rem,8vw,4rem)}
       .stats{grid-template-columns:repeat(3,1fr)}
       .competency-grid{grid-template-columns:repeat(2,1fr)}
-      .tools-split{grid-template-columns:1fr}
+      .tools-split{grid-template-columns:1fr;gap:24px}
       .method-grid{grid-template-columns:repeat(2,1fr)}
       .method-step{border-left:1px solid var(--border)!important}
       .projects-grid,.toolkit-cards{grid-template-columns:1fr}
-      .two-col,.contact-grid{grid-template-columns:1fr;gap:40px}
+      .two-col{grid-template-columns:1fr;gap:40px}
+      .contact-grid{grid-template-columns:1fr;gap:40px}
+      .exp-header{grid-template-columns:1fr;gap:8px}
+      .exp-meta{text-align:left;display:flex;align-items:center;gap:12px}
       .nav-links{display:none} .hamburger{display:flex}
+      section{padding:80px 0}
     }
-    @media(max-width:540px){
+    @media(max-width:640px){
       .stats{grid-template-columns:repeat(2,1fr)}
-      .competency-grid,.method-grid{grid-template-columns:1fr}
-      section{padding:70px 0} .container{padding:0 20px}
+      .competency-grid{grid-template-columns:1fr}
+      .method-grid{grid-template-columns:1fr}
+      .hero-dual-badge{flex-direction:column;align-items:center}
+      .dual-badge{justify-content:center;width:100%;max-width:260px}
+      section{padding:60px 0}
+      .container{padding:0 16px}
+      h2.section-title{font-size:1.8rem;margin-bottom:36px}
+      .tools-grid{gap:6px}
+      .tool-badge{font-size:10px;padding:7px 11px}
+      .exp-role{font-size:15px}
+    }
+    @media(max-width:400px){
+      .stats{grid-template-columns:1fr 1fr}
+      .stat-num{font-size:1.8rem}
+      h1{font-size:2.4rem}
     }
   </style>
 </head>
@@ -272,7 +292,7 @@
           <a href="threat-toolkit.html" class="btn btn-ghost"><i class="fas fa-terminal"></i> Live Toolkit</a>
         </div>
         <div class="hero-socials">
-          <a href="mailto:nehalkalbande44@gmail.com" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+          <a href="/cdn-cgi/l/email-protection#e18f8489808d8a808d83808f8584d5d5a1868c80888dcf828e8c" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
           <a href="https://www.linkedin.com/in/nehal-kalbande-1187761a8" target="_blank" rel="noopener" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
           <a href="https://github.com/MIGRANT-51" target="_blank" rel="noopener" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
           <a href="tel:+917385445420" class="social-link" title="Phone"><i class="fas fa-phone"></i></a>
@@ -366,11 +386,11 @@
     <div style="margin-top:40px">
       <div style="font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Web App Pentest Methodology (OWASP Testing Guide v4)</div>
       <div class="method-grid">
-        <div class="method-step"><div class="method-num">01</div><div class="method-icon" style="color:var(--blue)">&#128269;</div><div class="method-name">Recon</div><div class="method-desc">OSINT, subdomain enum, CT logs, Shodan</div></div>
-        <div class="method-step"><div class="method-num">02</div><div class="method-icon" style="color:var(--cyan)">&#128225;</div><div class="method-name">Scanning</div><div class="method-desc">Nmap, Nikto, Gobuster, auto discovery</div></div>
-        <div class="method-step"><div class="method-num">03</div><div class="method-icon" style="color:var(--yellow)">&#9889;</div><div class="method-name">Exploitation</div><div class="method-desc">Burp Suite, SQLMap, OWASP Top 10</div></div>
-        <div class="method-step"><div class="method-num">04</div><div class="method-icon" style="color:var(--orange)">&#127956;</div><div class="method-name">Post-Exploit</div><div class="method-desc">Priv esc, persistence, lateral movement</div></div>
-        <div class="method-step"><div class="method-num">05</div><div class="method-icon" style="color:var(--green)">&#128203;</div><div class="method-name">Reporting</div><div class="method-desc">CVSS scores, exec summary, remediation</div></div>
+        <div class="method-step"><div class="method-num">01</div><div class="method-icon" style="color:var(--blue)">🔍</div><div class="method-name">Recon</div><div class="method-desc">OSINT, subdomain enum, CT logs, Shodan</div></div>
+        <div class="method-step"><div class="method-num">02</div><div class="method-icon" style="color:var(--cyan)">📡</div><div class="method-name">Scanning</div><div class="method-desc">Nmap, Nikto, Gobuster, auto discovery</div></div>
+        <div class="method-step"><div class="method-num">03</div><div class="method-icon" style="color:var(--yellow)">⚡</div><div class="method-name">Exploitation</div><div class="method-desc">Burp Suite, SQLMap, OWASP Top 10</div></div>
+        <div class="method-step"><div class="method-num">04</div><div class="method-icon" style="color:var(--orange)">🏴</div><div class="method-name">Post-Exploit</div><div class="method-desc">Priv esc, persistence, lateral movement</div></div>
+        <div class="method-step"><div class="method-num">05</div><div class="method-icon" style="color:var(--green)">📋</div><div class="method-name">Reporting</div><div class="method-desc">CVSS scores, exec summary, remediation</div></div>
       </div>
     </div>
   </div>
@@ -542,7 +562,7 @@
     <div class="contact-grid">
       <div class="contact-info reveal">
         <p style="color:var(--muted);font-size:15px;line-height:1.85;margin-bottom:8px">Open to Cyber Security Analyst and Penetration Tester opportunities across India. Dual Blue/Red Team expertise. Available immediately for full-time roles, 24/7 rotational shifts, and night shifts.</p>
-        <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:nehalkalbande44@gmail.com">nehalkalbande44@gmail.com</a></div>
+        <div class="contact-item"><i class="fas fa-envelope"></i><a href="/cdn-cgi/l/email-protection#4e202b262f22252f222c2f202a2b7a7a0e29232f2722602d2123"><span class="__cf_email__" data-cfemail="b4dad1dcd5d8dfd5d8d6d5dad0d18080f4d3d9d5ddd89ad7dbd9">[email protected]</span></a></div>
         <div class="contact-item"><i class="fas fa-phone"></i><a href="tel:+917385445420">+91 7385445420</a></div>
         <div class="contact-item"><i class="fas fa-location-dot"></i><span>Nagpur, India &middot; Open to Relocation</span></div>
         <div class="contact-item"><i class="fab fa-linkedin-in"></i><a href="https://www.linkedin.com/in/nehal-kalbande-1187761a8" target="_blank" rel="noopener">linkedin.com/in/nehal-kalbande</a></div>
@@ -561,11 +581,11 @@
 
 <footer>
   <div class="container">
-    <p>&copy; <span id="year"></span> <span>Nehal Kalbande</span> &middot; SOC Analyst &amp; Penetration Tester &middot; Built with precision &#128274;</p>
+    <p>&copy; <span id="year"></span> <span>Nehal Kalbande</span> &middot; SOC Analyst &amp; Penetration Tester &middot; Built with precision 🔒</p>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   document.getElementById('year').textContent = new Date().getFullYear();
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
   document.querySelectorAll('.skill-fill').forEach(bar => { bar.style.width = (bar.dataset.width || '0') + '%'; });
@@ -582,10 +602,4 @@
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: document.getElementById('name').value, email: document.getElementById('email').value, message: document.getElementById('message').value })
       });
-      if (res.ok) { resp.style.color = '#22c55e'; resp.textContent = "Message received. I'll get back to you shortly."; this.reset(); }
-      else { throw new Error(); }
-    } catch { resp.style.color = '#ef4444'; resp.textContent = 'Something went wrong. Please email me directly.'; }
-  });
-</script>
-</body>
-</html>
+      if (res.
